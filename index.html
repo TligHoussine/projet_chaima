@@ -6,6 +6,8 @@
 <title>منصة رؤية — التقييم الشامل للمتعلم</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root {
   --ink: #1a1f2e;
@@ -174,6 +176,80 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 8px 24px rgba(21,101,160,0.35);
 }
+
+/* ── QR Code styles ── */
+.qr-section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.qr-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qr-box {
+  background: #ffffff;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  display: inline-flex;
+  box-shadow: 0 4px 16px rgba(21,101,160,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.qr-box:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 28px rgba(21,101,160,0.14);
+}
+
+.qr-box canvas, .qr-box img { display: block; border-radius: 6px; }
+
+.qr-url {
+  font-size: 0.68rem;
+  color: var(--teal);
+  font-weight: 600;
+  direction: ltr;
+  letter-spacing: 0.01em;
+  opacity: 0.75;
+}
+
+/* Sidebar QR */
+.sidebar-qr {
+  margin-bottom: 16px;
+  padding: 14px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.sidebar-qr-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.sidebar-qr-box {
+  display: inline-flex;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 6px;
+  border: 1px solid var(--border);
+}
+
+.sidebar-qr-box canvas, .sidebar-qr-box img { display: block; border-radius: 4px; }
 
 /* ══════════════════════════════
    APP SHELL
@@ -981,6 +1057,15 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
     <input type="text" class="login-input" id="login-name" placeholder="الاسم الكامل">
     <input type="password" class="login-input" placeholder="كلمة السر">
     <button class="btn-primary" onclick="doLogin()">دخول إلى المنصة →</button>
+
+    <!-- QR Code Section in Login -->
+    <div class="qr-section">
+      <span class="qr-label">📱 امسح للوصول إلى المشروع</span>
+      <a href="https://tlighoussine.github.io/projet_chaima/" target="_blank" style="text-decoration:none">
+        <div class="qr-box" id="qr-login"></div>
+      </a>
+      <span class="qr-url">tlighoussine.github.io/projet_chaima</span>
+    </div>
   </div>
 </div>
 
@@ -1045,6 +1130,13 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
       </div>
 
       <div class="sidebar-footer">
+        <!-- QR Code in Sidebar -->
+        <div class="sidebar-qr">
+          <span class="sidebar-qr-label">📱 رابط المشروع</span>
+          <a href="https://tlighoussine.github.io/projet_chaima/" target="_blank" style="text-decoration:none;display:inline-flex">
+            <div class="sidebar-qr-box" id="qr-sidebar"></div>
+          </a>
+        </div>
         <button class="logout-btn" onclick="doLogout()">🚪 تسجيل الخروج</button>
       </div>
     </nav>
@@ -1075,6 +1167,46 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 <div class="toast" id="toast">✅ تم الحفظ</div>
 
 <script>
+/* ════════════════════════════════
+   QR CODE GENERATION
+════════════════════════════════ */
+const QR_TARGET_URL = 'https://tlighoussine.github.io/projet_chaima/';
+
+function generateQRCodes() {
+  // Login screen QR — larger
+  const loginContainer = document.getElementById('qr-login');
+  if (loginContainer && typeof QRCode !== 'undefined') {
+    loginContainer.innerHTML = '';
+    new QRCode(loginContainer, {
+      text: QR_TARGET_URL,
+      width: 120,
+      height: 120,
+      colorDark: '#1565a0',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+
+  // Sidebar QR — smaller
+  const sidebarContainer = document.getElementById('qr-sidebar');
+  if (sidebarContainer && typeof QRCode !== 'undefined') {
+    sidebarContainer.innerHTML = '';
+    new QRCode(sidebarContainer, {
+      text: QR_TARGET_URL,
+      width: 90,
+      height: 90,
+      colorDark: '#1565a0',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Small delay to ensure QRCode lib is fully loaded
+  setTimeout(generateQRCodes, 300);
+});
+
 /* ════════════════════════════════
    STATE
 ════════════════════════════════ */
@@ -1123,6 +1255,9 @@ function doLogin() {
   
   screen('app');
   goPage('dashboard', null);
+
+  // Re-generate sidebar QR after app loads
+  setTimeout(generateQRCodes, 100);
 }
 
 function doLogout() {
@@ -1618,8 +1753,6 @@ function pageReport() {
     ratings.filter(r=>r==='excellent').length > ratings.length/2 ? 'excellent' :
     ratings.filter(r=>r==='good').length > ratings.length/2 ? 'good' : 'needs'
   ) : null;
-  const ratingText = { excellent:'ممتاز', good:'جيد', needs:'يحتاج دعم' };
-  const ratingBadge = { excellent:'badge-excellent', good:'badge-good', needs:'badge-needs' };
 
   return `
   <div class="report-header">
@@ -1848,7 +1981,6 @@ function answerGame(chosen, correct, btn) {
     if (currentQ < GAME_DATA[currentGame].questions.length) {
       renderGameModal(currentGame, currentQ);
     } else {
-      // Game done
       state.data.gameScores[currentGame] = Math.min(100, gameScore);
       const finalScore = Math.min(100, gameScore);
       document.getElementById('game-modal-content').innerHTML = `
@@ -1874,7 +2006,6 @@ function closeGame() {
 ════════════════════════════════ */
 function initPageJS(page) {
   if (page === 'teacher-grades') {
-    // Re-render labels on load
     ['arabic','math','science','english','art'].forEach(k => {
       const v = state.data.grades[k];
       if (v) {
