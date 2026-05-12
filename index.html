@@ -1032,7 +1032,6 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 <!-- ══ LOGIN SCREEN ══ -->
 <div id="screen-login" class="screen active">
   <div class="login-card">
-    <div class="brand-logo">🎓</div>
     <div class="brand-name">رُؤية</div>
     <div class="brand-tagline">منصة التقييم الشامل للمتعلم</div>
 
@@ -1057,15 +1056,6 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
     <input type="text" class="login-input" id="login-name" placeholder="الاسم الكامل">
     <input type="password" class="login-input" placeholder="كلمة السر">
     <button class="btn-primary" onclick="doLogin()">دخول إلى المنصة →</button>
-
-    <!-- QR Code Section in Login -->
-    <div class="qr-section">
-      <span class="qr-label">📱 امسح للوصول إلى المشروع</span>
-      <a href="https://tlighoussine.github.io/projet_chaima/" target="_blank" style="text-decoration:none">
-        <div class="qr-box" id="qr-login"></div>
-      </a>
-      <span class="qr-url">tlighoussine.github.io/projet_chaima</span>
-    </div>
   </div>
 </div>
 
@@ -1082,20 +1072,20 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
       <div class="nav-section-title">الفضاء الرئيسي</div>
       <div class="nav-item active" onclick="goPage('dashboard', this)">
-        <span class="nav-icon">🏠</span> لوحة التحكم
+        <span class="nav-icon"></span> لوحة التحكم
       </div>
 
       <!-- Parent nav -->
       <div id="nav-parent" style="display:none">
         <div class="nav-section-title">فضاء الولي</div>
         <div class="nav-item" onclick="goPage('parent-daily', this)">
-          <span class="nav-icon">📝</span> الملاحظات اليومية
+          <span class="nav-icon"></span> الملاحظات اليومية
         </div>
         <div class="nav-item" onclick="goPage('parent-review', this)">
-          <span class="nav-icon">📖</span> مراجعة الدروس
+          <span class="nav-icon"></span> مراجعة الدروس
         </div>
         <div class="nav-item" onclick="goPage('parent-calendar', this)">
-          <span class="nav-icon">📅</span> التقويم
+          <span class="nav-icon"></span> التقويم
         </div>
       </div>
 
@@ -1103,13 +1093,13 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
       <div id="nav-teacher" style="display:none">
         <div class="nav-section-title">فضاء المعلم</div>
         <div class="nav-item" onclick="goPage('teacher-monitor', this)">
-          <span class="nav-icon">👁️</span> المراقبة المستمرة
+          <span class="nav-icon"></span> المراقبة المستمرة
         </div>
         <div class="nav-item" onclick="goPage('teacher-grades', this)">
-          <span class="nav-icon">🎯</span> النتائج والفروض
+          <span class="nav-icon"></span> النتائج والفروض
         </div>
         <div class="nav-item" onclick="goPage('teacher-skills', this)">
-          <span class="nav-icon">⚡</span> تقييم المهارات
+          <span class="nav-icon"></span> تقييم المهارات
         </div>
       </div>
 
@@ -1117,16 +1107,16 @@ hr.div { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
       <div id="nav-student" style="display:none">
         <div class="nav-section-title">فضاء المتعلم</div>
         <div class="nav-item" onclick="goPage('student-games', this)">
-          <span class="nav-icon">🎮</span> الألعاب والتحديات
+          <span class="nav-icon"></span> الألعاب والتحديات
         </div>
         <div class="nav-item" onclick="goPage('student-profile', this)">
-          <span class="nav-icon">✨</span> ذكاءاتي
+          <span class="nav-icon"></span> ذكاءاتي
         </div>
       </div>
 
       <div class="nav-section-title" style="margin-top:12px">التقرير</div>
       <div class="nav-item" onclick="goPage('report', this)">
-        <span class="nav-icon">📊</span> التقرير الشامل
+        <span class="nav-icon"></span> التقرير الشامل
       </div>
 
       <div class="sidebar-footer">
